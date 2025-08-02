@@ -118,12 +118,12 @@
                 document.getElementById("progress-wrapper").classList.toggle("hidden", !showProgress);
 
                 // Reset classes
-                remainingEl.classList.remove("text-gray-300", "text-green-400", "font-bold", "font-normal");
+                remainingEl.classList.remove("text-white", "text-green-400", "font-normal");
 
                 if (remaining > 0) {
                     // Still under goal
                     remainingEl.textContent = `Only ${remaining} more items left to go! 👍`;
-                    remainingEl.classList.add("text-gray-300", "font-normal");
+                    remainingEl.classList.add("text-white", "font-normal");
                 } else if (remaining === 0) {
                     // Exactly hit the goal
                     remainingEl.textContent = `Goal met! 😎 Why not one more?`;
@@ -131,7 +131,7 @@
                 } else {
                     // Surpassed the goal
                     remainingEl.textContent = `+${Math.abs(remaining)} over. 🎉`;
-                    remainingEl.classList.add("text-green-400", "font-bold");
+                    remainingEl.classList.add("text-green-400", "font-extrabold");
                     specialPower.classList.remove('hidden');
                 }
 
@@ -174,16 +174,17 @@
 
     <!-- Goal Section -->
     <div class="w-full max-w-md text-center mb-8 mt-4">
-        <h1 class="text-lg font-semibold mb-2 tracking-wide drop-shadow-sm">
+        <div class="bg-gradient-to-br from-gray-400/20 to-black-600/10 backdrop-blur-md rounded-2xl shadow-lg p-4 mb-8">
+        <h1 class="text-lg font-semibold tracking-wide p-2">
             <span class="text-gray-300 font-extrabold">RidRally:</span><span
                 class="ml-2 bg-gradient-to-r from-green-400 via-blue-400 to-blue-600 bg-clip-text text-transparent">Throw
                 Away,
                 Give Away, Sell Away</span>
         </h1>
 
-        <div class="max-w-md mx-auto text-center mb-6">
+        <div class="max-w-md mx-auto text-center">
             <button aria-expanded="false"
-                class="learn-more-btn flex items-center text-sm text-blue-400 mx-auto focus:outline-none"
+                class="learn-more-btn flex items-center text-sm text-blue-400 mx-auto focus:outline-none pb-2"
                 onclick="toggleLearnMore(this)">
                 <span class="btn-text">Learn more</span>
                 <svg class="ml-1 w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor"
@@ -213,6 +214,7 @@
                 throw it
                 out!
             </p>
+        </div>
         </div>
 
         <script>
@@ -245,7 +247,7 @@
                     class="w-12 h-12 bg-green-500 bg-opacity-30 text-green-300 hover:bg-opacity-50 rounded-full flex items-center justify-center transition">+</button>
             </div>
 
-            <div id="progress-wrapper" class="hidden mt-3 text-sm text-gray-300">
+            <div id="progress-wrapper" class="hidden mt-3 text-lg font-normal text-white">
                 <span id="remaining">60</span>
             </div>
             <div class="hidden" id="special-bonus-power">
@@ -294,7 +296,7 @@
         <!-- Throw Away -->
         <div
             class="bg-gradient-to-br from-indigo-600/20 to-purple-600/10 backdrop-blur-md rounded-2xl p-5 shadow-lg flex items-center justify-between">
-            <div class="text-lg font-medium">🗑️ Throw Away</div>
+            <div class="text-lg font-normal">🗑️ Throw Away</div>
             <div class="flex items-center space-x-3">
                 <button id="throw-minus"
                     class="w-10 h-10 bg-red-500 bg-opacity-30 text-red-200 hover:bg-opacity-50 rounded-full flex items-center justify-center text-xl">–</button>
@@ -307,7 +309,7 @@
         <!-- Give Away -->
         <div
             class="bg-gradient-to-br from-emerald-600/20 to-cyan-600/10 backdrop-blur-md rounded-2xl p-5 shadow-lg flex items-center justify-between">
-            <div class="text-lg font-medium">🎁 Give Away</div>
+            <div class="text-lg font-normal">🎁 Give Away</div>
             <div class="flex items-center space-x-3">
                 <button id="give-minus"
                     class="w-10 h-10 bg-red-500 bg-opacity-30 text-red-200 hover:bg-opacity-50 rounded-full flex items-center justify-center text-xl">–</button>
@@ -320,7 +322,7 @@
         <!-- Sell Away -->
         <div
             class="bg-gradient-to-br from-yellow-600/20 to-orange-600/10 backdrop-blur-md rounded-2xl p-5 shadow-lg flex items-center justify-between">
-            <div class="text-lg font-medium">💰 Sell Away</div>
+            <div class="text-lg font-normal">💰 Sell Away</div>
             <div class="flex items-center space-x-3">
                 <button id="sell-minus"
                     class="w-10 h-10 bg-red-500 bg-opacity-30 text-red-200 hover:bg-opacity-50 rounded-full flex items-center justify-center text-xl">–</button>
