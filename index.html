@@ -5,6 +5,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Rid Rally: Monthly Riddance Goal Tracker</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <script defer>
         // UUID generator (v4)
         function generateUUID() {
@@ -82,6 +87,13 @@
                     goal,
                     progress
                 }));
+
+                // Remove URL params without reloading and then redirect home
+                const cleanUrl = window.location.origin + window.location.pathname;
+                window.history.replaceState({}, document.title, cleanUrl);
+
+                // Redirect to home page (you can change '/' to your actual homepage path)
+                window.location.href = '/';
             }
             // Else if saved data exists, use it
             else if (saved) {
