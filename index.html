@@ -168,8 +168,11 @@
 
         function showMotivationModal({ motivation, credit, cta }) {
             const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+            const isDisabled = localStorage.getItem('motivation_disabled') === 'true';
 
-            if (!saved) return;
+            console.log(`Saved data: ${JSON.stringify(saved)}`);
+            console.log(`Is motivation disabled? ${isDisabled}`);
+            if (!saved || isDisabled) return;
 
             const lastShown = localStorage.getItem('motivation_last_shown');
             const today = new Date().toISOString().split('T')[0];
@@ -198,21 +201,31 @@
             modal.id = 'motivation-modal';
             modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60';
             modal.innerHTML = `
-  <div class="max-w-md w-full mx-4 rounded-xl shadow-xl transform transition-all bg-gradient-to-br ${gradient} text-white p-6 relative animate-fadeIn min-h-[40vh] sm:min-h-[30vh] flex items-center">
-    <button class="absolute top-3 right-3 text-white text-2xl hover:scale-110 transform transition" onclick="document.getElementById('motivation-modal').remove()">×</button>
-    <div class="text-center space-y-4 w-full">
-      <h2 class="text-2xl font-bold mb-2">Motivation of the Day</h2>
-      <p class="text-lg text-black sm:text-xl font-semibold leading-snug">${motivation}</p>
-      <p class="text-sm italic opacity-80">(Source: ${credit})</p>
-      <button class="mt-4 px-5 py-2 bg-white text-gray-800 font-semibold rounded-md hover:bg-gray-200 transition"
-        onclick="document.getElementById('motivation-modal').remove()">
-        Close
-      </button>
-    </div>
-  </div>
-`;
+            <div class="max-w-md w-full mx-4 rounded-xl shadow-xl transform transition-all bg-gradient-to-br ${gradient} text-white p-6 relative animate-fadeIn min-h-[40vh] sm:min-h-[30vh] flex items-center">
+                <button class="absolute top-3 right-3 text-white text-2xl hover:scale-110 transform transition" onclick="document.getElementById('motivation-modal').remove()">×</button>
+                <div class="text-center space-y-4 w-full">
+                <h2 class="text-2xl font-bold mb-2">Motivation of the Day</h2>
+                <p class="text-lg text-black sm:text-xl font-semibold leading-snug">${motivation}</p>
+                <p class="text-sm italic opacity-80">(Source: ${credit})</p>
+                <button class="mt-4 px-5 py-2 bg-white text-gray-800 font-semibold rounded-md hover:bg-gray-200 transition"
+                    onclick="document.getElementById('motivation-modal').remove()">
+                    Close
+                </button>
+                <br/>
+                <button onclick="disableMotivation()" class="text-sm underline text-white hover:text-gray-300 mt-2">
+                    Don’t show this again
+                </button>
+                </div>
+            </div>
+            `;
 
             document.body.appendChild(modal);
+        }
+
+        function disableMotivation() {
+            localStorage.setItem('motivation_disabled', 'true');
+            const modal = document.getElementById('motivation-modal');
+            if (modal) modal.remove();
         }
 
         function getMotivation() {
