@@ -335,6 +335,14 @@
         *This site uses <code>localStorage</code>. Your data will be lost if you use a private/incognito window or clear
         your browser cache. Until I add a back-end, consider taking a screenshot every now and then.
     </p>
+    <div class="text-gray-500 text-sm mt-4 text-center mb-8">
+        © <span id="currentYear">2025</span> <a href="https://lukemoorman.com"
+            class="text-blue-400 hover:underline">Luke Moorman</a>
+        <script>
+            document.getElementById("currentYear").innerHTML =
+                new Date().getFullYear();
+        </script>
+    </div>
 </body>
 
 </html>
