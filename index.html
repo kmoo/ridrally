@@ -165,6 +165,226 @@
 
             updateDisplay();
         });
+
+        function showMotivationModal({ motivation, credit, cta }) {
+            const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+
+            if (!saved) return;
+
+            const lastShown = localStorage.getItem('motivation_last_shown');
+            const today = new Date().toISOString().split('T')[0];
+
+            console.log(`Last shown: ${lastShown}, Today: ${today}`);
+
+            if (lastShown === today) return;
+
+            localStorage.setItem('motivation_last_shown', today);
+
+            const gradients = [
+                'from-green-400 via-blue-500 to-purple-600',
+                'from-indigo-500 via-purple-500 to-pink-500',
+                'from-pink-500 via-red-500 to-yellow-500',
+                'from-yellow-400 via-red-500 to-pink-500',
+                'from-blue-400 via-cyan-500 to-teal-500',
+                'from-orange-400 via-red-500 to-pink-500',
+                'from-rose-400 via-fuchsia-500 to-indigo-500'
+            ];
+            const gradient = gradients[new Date().getDay()];
+
+            const existing = document.getElementById('motivation-modal');
+            if (existing) existing.remove();
+
+            const modal = document.createElement('div');
+            modal.id = 'motivation-modal';
+            modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60';
+            modal.innerHTML = `
+  <div class="max-w-md w-full mx-4 rounded-xl shadow-xl transform transition-all bg-gradient-to-br ${gradient} text-white p-6 relative animate-fadeIn min-h-[40vh] sm:min-h-[30vh] flex items-center">
+    <button class="absolute top-3 right-3 text-white text-2xl hover:scale-110 transform transition" onclick="document.getElementById('motivation-modal').remove()">×</button>
+    <div class="text-center space-y-4 w-full">
+      <h2 class="text-2xl font-bold mb-2">Motivation of the Day</h2>
+      <p class="text-lg text-black sm:text-xl font-semibold leading-snug">${motivation}</p>
+      <p class="text-sm italic opacity-80">(Source: ${credit})</p>
+      <button class="mt-4 px-5 py-2 bg-white text-gray-800 font-semibold rounded-md hover:bg-gray-200 transition"
+        onclick="document.getElementById('motivation-modal').remove()">
+        Close
+      </button>
+    </div>
+  </div>
+`;
+
+            document.body.appendChild(modal);
+        }
+
+        function getMotivation() {
+            return [
+                {
+                    "motivation": "80% of Americans feel overwhelmed by clutter in their homes.",
+                    "credit": "wifitalents.com",
+                    "cta": "Clear Your Space"
+                },
+                {
+                    "motivation": "56% report anxiety or stress when their space is cluttered.",
+                    "credit": "wifitalents.com",
+                    "cta": "Start Small"
+                },
+                {
+                    "motivation": "Decluttering can reduce cortisol (stress hormone) levels by about 20%.",
+                    "credit": "wifitalents.com",
+                    "cta": "Reduce Stress"
+                },
+                {
+                    "motivation": "89% of women and 77% of men feel better after organizing their home.",
+                    "credit": "wifitalents.com",
+                    "cta": "Feel Better"
+                },
+                {
+                    "motivation": "People who declutter regularly are 35% more likely to feel calm and relaxed at home.",
+                    "credit": "wifitalents.com",
+                    "cta": "Create Calm"
+                },
+                {
+                    "motivation": "Clutter can reduce overall happiness scores by up to 15%.",
+                    "credit": "wifitalents.com",
+                    "cta": "Boost Happiness"
+                },
+                {
+                    "motivation": "Clutter increases the risk of household accidents—falls by ~30%.",
+                    "credit": "wifitalents.com",
+                    "cta": "Make It Safer"
+                },
+                {
+                    "motivation": "Residents walk more (~15 min/day) after tidying up.",
+                    "credit": "wifitalents.com",
+                    "cta": "Move More"
+                },
+                {
+                    "motivation": "Clutter causes decision fatigue—decision‑making drops by ~15%.",
+                    "credit": "gitnux.org",
+                    "cta": "Think Clearly"
+                },
+                {
+                    "motivation": "Americans spend ~2.5 days/year searching for misplaced items.",
+                    "credit": "parking-mobility.org",
+                    "cta": "Save Time"
+                },
+                {
+                    "motivation": "Americans pay ~$2,000/year replacing lost items.",
+                    "credit": "medium.com",
+                    "cta": "Stop Wasting Money"
+                },
+                {
+                    "motivation": "Clutter can reduce productivity by up to 40%.",
+                    "credit": "zipdo.co",
+                    "cta": "Boost Focus"
+                },
+                {
+                    "motivation": "78% say a tidy space boosts focus; 83% say it sparks creativity.",
+                    "credit": "parking-mobility.org",
+                    "cta": "Tidy Up"
+                },
+                {
+                    "motivation": "A cluttered home contributes to late bill payments for ~23% of adults.",
+                    "credit": "medium.com",
+                    "cta": "Stay Organized"
+                },
+                {
+                    "motivation": "Over 300,000 items live in the average American household.",
+                    "credit": "bintheredumpthatusa.com",
+                    "cta": "Own Less"
+                },
+                {
+                    "motivation": "80% of items in homes go unused.",
+                    "credit": "wethreeshanes.com",
+                    "cta": "Let It Go"
+                },
+                {
+                    "motivation": "“The things you own end up owning you.”",
+                    "credit": "Chuck Palahniuk",
+                    "cta": "Break Free"
+                },
+                {
+                    "motivation": "“Have nothing in your house that you do not know to be beautiful or believe to be useful.”",
+                    "credit": "William Morris",
+                    "cta": "Choose Wisely"
+                },
+                {
+                    "motivation": "“If it only takes five minutes, just do it.”",
+                    "credit": "reddit.com/r/declutter",
+                    "cta": "Just Do It"
+                },
+                {
+                    "motivation": "Decluttering reduces depression symptoms and improves self-esteem (~25%).",
+                    "credit": "wifitalents.com",
+                    "cta": "Feel Lighter"
+                },
+                {
+                    "motivation": "Over 90% say a clutter‑free space helps them feel more relaxed and productive.",
+                    "credit": "twomenandajunktruck.com",
+                    "cta": "Relax More"
+                },
+                {
+                    "motivation": "Clean homes support better sleep, healthier eating, and less fatigue.",
+                    "credit": "webmd.com",
+                    "cta": "Sleep Better"
+                },
+                {
+                    "motivation": "Clutter increases noise and visual distractions, raising stress levels.",
+                    "credit": "gitnux.org",
+                    "cta": "Quiet the Chaos"
+                },
+                {
+                    "motivation": "Nearly 50% of couples argue over clutter.",
+                    "credit": "wethreeshanes.com",
+                    "cta": "Declutter Together"
+                },
+                {
+                    "motivation": "Half of people believe they could be happy with most possessions gone.",
+                    "credit": "time.com",
+                    "cta": "Choose Less"
+                },
+                {
+                    "motivation": "“The long‑term peace of less surpasses the short‑term thrill of more.”",
+                    "credit": "reddit.com/r/minimalism",
+                    "cta": "Seek Peace"
+                },
+                {
+                    "motivation": "Organizing your space restores control and reduces overwhelm.",
+                    "credit": "nypost.com",
+                    "cta": "Take Control"
+                },
+                {
+                    "motivation": "Decluttering often leads to redecorating with more meaning.",
+                    "credit": "storeitrightnow.com",
+                    "cta": "Add Meaning"
+                },
+                {
+                    "motivation": "“The practical benefits of owning less are more money, more time, more calm, more freedom.”",
+                    "credit": "Joshua Becker",
+                    "cta": "Live With Less"
+                },
+                {
+                    "motivation": "Every item you own takes up not just space, but mental energy.",
+                    "credit": "theminimalists.com",
+                    "cta": "Protect Energy"
+                },
+                {
+                    "motivation": "Donating unused items helps someone in need—and frees up space.",
+                    "credit": "goodwill.org",
+                    "cta": "Donate Today"
+                },
+                {
+                    "motivation": "Cluttered homes can lead to more procrastination.",
+                    "credit": "psychologytoday.com",
+                    "cta": "Take Action"
+                },
+                {
+                    "motivation": "Decluttering is self-respect—it shows you value your space and time.",
+                    "credit": "becomingminimalist.com",
+                    "cta": "Honor Your Space"
+                }
+            ][(new Date().getDate() - 1)];
+        }
+
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -175,46 +395,50 @@
     <!-- Goal Section -->
     <div class="w-full max-w-md text-center mb-8 mt-4">
         <div class="bg-gradient-to-br from-gray-400/20 to-black-600/10 backdrop-blur-md rounded-2xl shadow-lg p-4 mb-8">
-        <h1 class="text-lg font-semibold tracking-wide p-2">
-            <span class="text-gray-300 font-extrabold">RidRally:</span><span
-                class="ml-2 bg-gradient-to-r from-green-400 via-blue-400 to-blue-600 bg-clip-text text-transparent">Throw
-                Away,
-                Give Away, Sell Away</span>
-        </h1>
+            <h1 class="text-lg font-semibold tracking-wide p-2">
+                <span class="text-gray-300 font-extrabold">RidRally:</span><span
+                    class="ml-2 bg-gradient-to-r from-green-400 via-blue-400 to-blue-600 bg-clip-text text-transparent">Throw
+                    Away,
+                    Give Away, Sell Away</span>
+            </h1>
 
-        <div class="max-w-md mx-auto text-center">
-            <button aria-expanded="false"
-                class="learn-more-btn flex items-center text-sm text-blue-400 mx-auto focus:outline-none pb-2"
-                onclick="toggleLearnMore(this)">
-                <span class="btn-text">Learn more</span>
-                <svg class="ml-1 w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor"
-                    stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
-                </svg>
-            </button>
-        </div>
+            <div class="max-w-md mx-auto text-center">
+                <button aria-expanded="false"
+                    class="learn-more-btn flex items-center text-sm text-blue-400 mx-auto focus:outline-none pb-2"
+                    onclick="toggleLearnMore(this)">
+                    <span class="btn-text">Learn more</span>
+                    <svg class="ml-1 w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+            </div>
 
-        <div id="intro-full" class="max-w-md mx-auto text-center text-gray-300 hidden">
-            <p class="mb-4">
-                Ready to start the month with a goal to get rid of stuff? Whether you're single, married, or bringing
-                the whole
-                family along for the ride, this app helps you stay accountable and make real progress toward getting rid
-                of what
-                you don't need—and creating momentum for positive change in your life. Let’s do this! 💪
-            </p>
-            <p class="mb-4">
-                <strong>Throw away:</strong> Aim for this to be your main source of riddance.
-            </p>
-            <p class="mb-4">
-                <strong>Give away:</strong> This is your go-to for second chances: thrift stores, friends, or coworkers.
-            </p>
-            <p class="mb-4">
-                <strong>Sell away:</strong> Let’s be honest — how often do we say, ‘I’m just trying to sell this,’ but
-                never really follow through? Don’t make this your last resort: if you can’t sell it, give it away or
-                throw it
-                out!
-            </p>
-        </div>
+            <div id="intro-full" class="max-w-md mx-auto text-center text-gray-300 hidden">
+                <p class="mb-4">
+                    Ready to start the month with a goal to get rid of stuff? Whether you're single, married, or
+                    bringing
+                    the whole
+                    family along for the ride, this app helps you stay accountable and make real progress toward getting
+                    rid
+                    of what
+                    you don't need—and creating momentum for positive change in your life. Let’s do this! 💪
+                </p>
+                <p class="mb-4">
+                    <strong>Throw away:</strong> Aim for this to be your main source of riddance.
+                </p>
+                <p class="mb-4">
+                    <strong>Give away:</strong> This is your go-to for second chances: thrift stores, friends, or
+                    coworkers.
+                </p>
+                <p class="mb-4">
+                    <strong>Sell away:</strong> Let’s be honest — how often do we say, ‘I’m just trying to sell this,’
+                    but
+                    never really follow through? Don’t make this your last resort: if you can’t sell it, give it away or
+                    throw it
+                    out!
+                </p>
+            </div>
         </div>
 
         <script>
@@ -345,6 +569,7 @@
                 new Date().getFullYear();
         </script>
     </div>
+    <script>showMotivationModal(getMotivation());</script>
 </body>
 
 </html>
