@@ -11,6 +11,7 @@
     <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <script defer>
+        const ORIGINAL_GOAL = 25;
         // UUID generator (v4)
         function generateUUID() {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
@@ -56,7 +57,7 @@
             const currentMonthName = monthNames[now.getMonth()];
             goalTitleEl.textContent = `🎯 My ${currentMonthName} Goal`;
             // State
-            let originalGoal = 60;
+            let originalGoal = ORIGINAL_GOAL;
             let goal = originalGoal;
             let progress = { throw: 0, give: 0, sell: 0 };
 
@@ -64,8 +65,6 @@
             const goalEl = document.getElementById("goal-value");
             const remainingEl = document.getElementById("remaining");
 
-            // Load saved data
-            // Load saved data
             // Load saved data
             const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
@@ -76,7 +75,7 @@
                 params.giveValue !== null ||
                 params.sellValue !== null
             ) {
-                originalGoal = params.goalValue !== null ? params.goalValue : 60;
+                originalGoal = params.goalValue !== null ? params.goalValue : ORIGINAL_GOAL;
                 goal = originalGoal;
                 progress.throw = params.throwValue !== null ? params.throwValue : 0;
                 progress.give = params.giveValue !== null ? params.giveValue : 0;
@@ -101,7 +100,6 @@
                 goal = saved.goal;
                 progress = saved.progress;
             }
-
 
             const updateDisplay = () => {
                 goalEl.textContent = goal;
