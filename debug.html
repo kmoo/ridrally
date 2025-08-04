@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Application Debug</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-900 text-white p-6 font-mono min-h-screen">
+
+  <h1 class="text-2xl font-bold mb-4">📦 LocalStorage Debug Panel</h1>
+
+  <div id="storage-output"
+    class="mb-6 bg-gray-800 rounded-lg p-4 overflow-x-auto whitespace-pre text-sm border border-gray-700"></div>
+
+  <button onclick="clearStorage()" class="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded">
+    🔥 Clear All localStorage
+  </button>
+
+  <script>
+    function displayStorage() {
+      const output = document.getElementById('storage-output');
+      if (localStorage.length === 0) {
+        output.textContent = "localStorage is empty.";
+        return;
+      }
+
+      const result = {};
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        try {
+          result[key] = JSON.parse(localStorage.getItem(key));
+        } catch (e) {
+          result[key] = localStorage.getItem(key);
+        }
+      }
+
+      output.textContent = JSON.stringify(result, null, 2);
+    }
+
+    function clearStorage() {
+      if (confirm('Are you sure you want to clear ALL localStorage?')) {
+        localStorage.clear();
+        displayStorage();
+        alert('localStorage cleared.');
+      }
+    }
+
+    displayStorage();
+  </script>
+</body>
+
+</html>
